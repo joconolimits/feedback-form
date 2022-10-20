@@ -22,6 +22,13 @@ const maxFileSize = max => {
     return file => file.size > max * 1024 * 1024
         ? `File must be less than ${max}MB`
         : null
+}
+
+const required = () => {
+    console.log('required')
+    return input => input
+        ? null
+        : 'This field is required'
 };
 
-export { minLength, isEmail, isDanishPhone, maxFileSize }
+export { minLength, isEmail, isDanishPhone, maxFileSize, required }

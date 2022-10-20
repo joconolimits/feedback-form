@@ -30,7 +30,7 @@
           type="email"
           label="Email"
           icon="envelope"
-          :validators="[isEmail()]"
+          :validators="[required(), isEmail()]"
           :required="true"
           v-model="formFields.email.value"
           @onValidate="(errors) => updateFieldState('email', errors)"
@@ -54,13 +54,13 @@
 </template>
 
 <script>
-import BaseInputField from "../components/BaseInputField";
-import {isDanishPhone, isEmail, maxFileSize, minLength} from "../validations/validators";
-import {formatPhoneNumber} from "../validations/validations";
-import FileUploadField from "../components/FileUploadField";
-import setComputedFields from "../utils/setComputedFields";
-import {useStore} from "vuex";
-import {computed} from "vue";
+import BaseInputField from '../components/BaseInputField'
+import { isDanishPhone, isEmail, maxFileSize, minLength, required } from '../validations/validators'
+import { formatPhoneNumber } from '../validations/validations'
+import FileUploadField from '../components/FileUploadField'
+import setComputedFields from '../utils/setComputedFields'
+import { useStore } from 'vuex'
+import { computed } from 'vue'
 
 export default {
   name: 'FeedbackForm',
@@ -101,7 +101,8 @@ export default {
       isEmail,
       isDanishPhone,
       setPhoneNumber,
-      maxFileSize
+      maxFileSize,
+      required
     }
   }
 }
