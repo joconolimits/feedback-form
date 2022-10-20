@@ -25,7 +25,6 @@ const maxFileSize = max => {
 }
 
 const required = () => {
-    console.log('required')
     return input => input
         ? null
         : 'This field is required'
