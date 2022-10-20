@@ -2,7 +2,8 @@
   <div id="drop-area">
     <input type="file" id="fileElem" @change="handleSubmit" />
     <label class="ui button" for="fileElem">Select file</label>
-    <span> or drop file</span>
+    <span v-if="!filePath"> or drop file</span>
+    <span v-else>{{ file.name }}</span>
   </div>
   <ErrorMessage :errors="errors" />
 </template>
@@ -26,6 +27,7 @@ export default {
     }
   },
   setup (props, { emit }) {
+    const filePath = ref('')
     const file = ref({})
     const dropArea = ref()
     function preventDefaults (e) {
@@ -46,11 +48,10 @@ export default {
       file.value = reactive(event.target.files[0])
     }
     const onUploadValidated = async (errors) => {
-      let filePath = ''
       if (!errors.length) {
         const formData = new FormData()
         formData.append('file', file.value)
-        filePath = await mockUploadAPI(formData)
+        filePath.value = await mockUploadAPI(formData)
       }
       emit('onValidate', errors, filePath)
     }
@@ -74,6 +75,8 @@ export default {
         onUploadValidated
     );
     return {
+      file,
+      filePath,
       errors,
       handleSubmit
     }
